@@ -1,0 +1,132 @@
+   /*
+        Toast
+        */
+        .toast {
+            min-height: 50px;
+            min-width: 150px;
+            border-radius: 6px;
+            display: none;
+            position: absolute;
+            border: 1px solid grey;
+        }
+
+        .toast-text {
+            line-height: 50px;
+        }
+        .toast-text::after {
+            clear: both;
+        }
+
+        .icon {
+            float: left;
+            min-height: 30px;
+            min-width: 30px;
+            background-color: green;
+            border-radius: 6px;
+            position: relative;
+            top: 10px;
+        }
+        .icon::after {
+            clear: both;
+        }
+
+        .toast-visible {
+            animation: fade-in 0.5s;
+        }
+
+        .toast-invisible {
+            animation: fade-out 0.5s;
+        }
+
+        .toast-position-top-right {
+            right: 10px;
+            top: 10px;
+        }
+        .toast-position-top-left {
+            left: 10px;
+            top: 10px;
+        }
+
+        .success {
+            background-color: springgreen;
+        }
+
+        .failure {
+            background-color: tomato;
+        }
+
+        .warning {
+            background-color: wheat;
+        }
+
+        /*
+        Modal
+        */
+        .modal {
+            min-height: 500px;
+            width: 600px;
+            position: relative;
+            border: 1px solid black;
+            border-radius: 6px;
+            
+        }
+        .modal-container {
+            padding: 10px;
+            position: inherit;
+        }
+        .modal-header {
+            margin-bottom: 5px;
+            min-height: 50px;
+        }
+        .modal-body {
+            border: 1px darkslategrey solid;
+            background-color: lightgrey;
+            min-height: 400px;
+            margin-bottom: 5px;
+        }
+        .modal-footer {
+            min-height: 50px;
+            border-top: 1px solid darkslategrey;
+        }
+
+        .modal-title {
+            font-size: 26px;
+        }
+
+        .modal-btn {
+            margin-top: 10px;
+        }
+        .footer-button-wrapper {
+            float:right;
+        }
+        /*
+        standard styling bts etc
+        */
+        .btn {
+            padding: 10px;
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+
+        /*
+        Animations
+        */
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fade-out {
+            from {
+                opacity: 1;
+            }
+
+            to {
+                opacity: 0;
+            }
+        }

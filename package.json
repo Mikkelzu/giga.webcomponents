@@ -1,0 +1,19 @@
+{
+  "name": "giga.webcomponents",
+  "version": "0.1.0",
+  "description": "Small package library for some custom built web components with the idea of each component being easy to use, easy to customize and a time saver!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mikkelzu/giga.webcomponents.git"
+  },
+  "author": "Mikkelzu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mikkelzu/giga.webcomponents/issues"
+  },
+  "homepage": "https://github.com/Mikkelzu/giga.webcomponents#readme"
+}

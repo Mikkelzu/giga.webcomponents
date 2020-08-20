@@ -1,5 +1,5 @@
-function toast() {
-    giga.toast(constants.TOAST.WARNING, {text: 'standard'})
+function toast(input) {
+    giga.toast(constants.TOAST.WARNING, {text: input})
 }
 
 function modal() {
