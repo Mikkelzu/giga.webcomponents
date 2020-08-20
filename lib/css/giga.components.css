@@ -31,11 +31,11 @@ Toast
 }
 
 .toast-visible {
-    animation: fade-in 0.5s;
+    animation: cascade-in 0.5s, fade-in 0.5s;
 }
 
 .toast-invisible {
-    animation: fade-out 0.5s;
+    animation: cascade-out 0.5s, fade-out 0.5s;
 }
 
 .toast-position-top-right {
@@ -128,5 +128,27 @@ Animations
 
     to {
         opacity: 0;
+    }
+}
+
+@keyframes cascade-in {
+    from {
+        right: -10px;
+        top: -10px;
+    }
+    to {
+        right: 10px;
+        top: 10px;
+    }
+}
+
+@keyframes cascade-out {
+    from {
+        right: 10px;
+        top: 10px;
+    }
+    to {
+        right: -10px;
+        top: -10px;
     }
 }
