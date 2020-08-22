@@ -12,6 +12,7 @@ Toast
 
 .toast-text {
     line-height: 50px;
+    margin-left: 20px;
 }
 .toast-text::after {
     clear: both;
@@ -48,15 +49,26 @@ Toast
 }
 
 .success {
-    background-color: springgreen;
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
 }
 
 .failure {
-    background-color: tomato;
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
 }
 
 .warning {
-    background-color: wheat;
+    color: #856404;
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+}
+.info {
+    color: #004085;
+    background-color: #cce5ff;
+    border-color: #b8daff;
 }
 
 /*
