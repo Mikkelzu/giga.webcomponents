@@ -60,3 +60,6 @@ The reason we chose to use this method of setting things, is mostly so we keep a
 
 During development, some of the objects, method and other things will either be deprecated or have their names changed to be more fitting.
 Currently the library is called "Giga" but this is subject to change as we speed along development and prepare for a full release to the public.
+
+## Docs version
+0.5.0
