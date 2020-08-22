@@ -1,5 +1,5 @@
 function toast(input) {
-    giga.toast(constants.TOAST.SUCCESS, {text: input, icon: 'far fa-check-circle'})
+    giga.toast(constants.TOAST.SUCCESS, {text: input, icon: 'far fa-check-circle fa-lg'})
 }
 
 function modal() {
