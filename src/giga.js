@@ -1,16 +1,3 @@
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = function (d, b) {
-        extendStatics = Object.setPrototypeOf ||
-            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
-        return extendStatics(d, b);
-    };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 var Constants = /** @class */ (function () {
     function Constants() {
         this.SUCCESS = 'success';
@@ -29,26 +16,19 @@ var ElementType = /** @class */ (function () {
     return ElementType;
 }());
 var ToastOptions = /** @class */ (function () {
-    function ToastOptions(text, icon) {
+    function ToastOptions(text, icon, position, timeOut) {
         this.text = text;
         this.icon = icon;
+        if (position == undefined)
+            this.position = 'top-right';
+        else
+            this.position = position;
+        if (timeOut == undefined)
+            this.timeOut = 2000;
+        else
+            this.timeOut = timeOut;
     }
     return ToastOptions;
-}());
-var ToastConfig = /** @class */ (function () {
-    function ToastConfig(position, timeOut) {
-        if (position === "" || position === null || position === undefined) {
-            this.position = 'top-right';
-        }
-        if (timeOut === null || timeOut === undefined) {
-            this.timeOut = 2000;
-        }
-        if (timeOut && position) {
-            this.position = position;
-            this.timeOut = timeOut;
-        }
-    }
-    return ToastConfig;
 }());
 var ComponentBase = /** @class */ (function () {
     function ComponentBase() {
@@ -78,60 +58,60 @@ var ComponentBase = /** @class */ (function () {
     };
     return ComponentBase;
 }());
-var Toast = /** @class */ (function (_super) {
-    __extends(Toast, _super);
-    function Toast(toastClass, options) {
-        var _this = _super.call(this) || this;
-        _this.toasts = { all: [] };
-        //Empty constructor
-        _this.toastClass = toastClass;
-        _this.options = options;
-        console.log('we got to the constructor! (i hope)');
-        _this.toast(options);
-        return _this;
+var ToastHelperMethods = /** @class */ (function () {
+    function ToastHelperMethods() {
+        this.toasts = { all: [] };
+        this.componentBase = new ComponentBase();
+        //this.options = options;
     }
-    Toast.prototype.toast = function (config) {
-        for (var i = 0; i < this.toasts.all.length; i++) {
-            this.toasts.all[i].style.top += 65;
-        }
-        // fallback if user has only entered text as options param
-        if (!config.hasOwnProperty('position') || !config.hasOwnProperty('timeOut')) {
-            this.config.position = config.position;
-            this.config.timeOut = config.timeOut;
-        }
-        else {
-        }
-        var el = this.generateToastElements(this.options);
-        el.classList.add('toast', this.toastClass);
-        el.classList.add('toast-position-' + this.config.position);
-        el.style.display = 'block';
-        el.classList.add('toast-visible');
-        this.addElementToBody(el);
-        this.elementTimeOutAndDestroy(el, this.options, this.toasts);
-    };
-    Toast.prototype.generateToastElements = function (options) {
-        var el = this.generateElement('div');
-        var spanIcon = this.generateElement('span');
-        var spanText = this.generateElement('span');
+    ToastHelperMethods.prototype.generateToastElements = function (options) {
+        var el = this.componentBase.generateElement('div');
+        var spanIcon = this.componentBase.generateElement('span');
+        var spanText = this.componentBase.generateElement('span');
         el.style.zIndex = 9999;
         if (options.icon) {
             if (options.icon.includes("fab") || options.icon.includes("fas") || options.icon.includes("far")) {
-                var fontAwesomeIcon = this.options.icon.split(" ");
+                var fontAwesomeIcon = options.icon.split(" ");
                 fontAwesomeIcon.forEach(function (styleClass) {
                     spanIcon.classList.add(styleClass);
                 });
             }
             else {
-                console.log(options.icon);
                 spanIcon.classList.add(options.icon);
             }
         }
         spanText.classList.add('toast-text');
-        spanText.innerHTML = this.options.text;
+        spanText.innerHTML = options.text;
         el.append(spanIcon, spanText);
-        this.options = options;
         this.toasts.all.push(el);
         return el;
     };
+    return ToastHelperMethods;
+}());
+var Toast = /** @class */ (function () {
+    function Toast(toastClass, options) {
+        this.toasts = { all: [] };
+        this.componentBase = new ComponentBase();
+        this.toastHelpers = new ToastHelperMethods();
+        //Empty constructor
+        this.toastClass = toastClass;
+        this.options = options;
+        for (var i = 0; i < this.toasts.all.length; i++) {
+            this.toasts.all[i].style.top += 65;
+        }
+        //fallback if user has only entered text as options param
+        // if (!this.options.cfg.hasOwnProperty('position') || !this.options.cfg.hasOwnProperty('timeOut')) {
+        //     this.config.position = 'top-right'
+        //     this.config.timeOut = 2000
+        // }
+        var el = this.toastHelpers.generateToastElements(this.options);
+        el.classList.add('toast', this.toastClass);
+        el.classList.add('toast-position-' + this.options.position);
+        el.style.display = 'block';
+        el.classList.add('toast-visible');
+        this.componentBase.addElementToBody(el);
+        console.log("created toast");
+        //this.componentBase.elementTimeOutAndDestroy(el, this.options, this.toasts);
+    }
     return Toast;
-}(ComponentBase));
+}());
