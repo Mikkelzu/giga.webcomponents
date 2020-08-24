@@ -9,7 +9,7 @@ class Toast extends ComponentBase {
 
     private toasts: any = {all: []};
 
-    public Toast(toastClass: string, options: ToastOptions = null) {
+    public Toast(toastClass: string, options: ToastOptions) {
         //Empty constructor
         this.toastClass = toastClass;
         this.options = options;

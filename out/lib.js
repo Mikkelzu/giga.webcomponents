@@ -1,6 +1,3 @@
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 define("element.type", ["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
@@ -78,13 +75,12 @@ define("config/toast.config", ["require", "exports"], function (require, exports
 define("toast", ["require", "exports", "giga"], function (require, exports, giga_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    giga_1 = __importDefault(giga_1);
     class Toast extends giga_1.default {
         constructor() {
             super(...arguments);
             this.toasts = { all: [] };
         }
-        Toast(toastClass, options = null) {
+        Toast(toastClass, options) {
             //Empty constructor
             this.toastClass = toastClass;
             this.options = options;
@@ -134,4 +130,3 @@ define("toast", ["require", "exports", "giga"], function (require, exports, giga
         }
     }
 });
-//# sourceMappingURL=lib.js.map
