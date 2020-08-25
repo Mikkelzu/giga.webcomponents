@@ -186,26 +186,54 @@ class Toast {
  * TABLE Classes
  */
 class Table {
-    constructor() {}
+
+    private tableHelpers: TableHelperMethods;
+    constructor() {
+        this.tableHelpers = new TableHelperMethods('id', ['head1', 'head2', 'head3']);
+
+        this.tableHelpers.generateTable();
+    }
 }
 
 class TableHelperMethods {
 
     private componentBase: ComponentBase;
     private tableId: string;
-
-    constructor(tableId: string) {
+    private tableHeadNames: any;
+    /**
+     * 
+     * @param tableId 
+     * @param tableHeadNames 
+     */
+    constructor(tableId: string, tableHeadNames: any) {
         this.componentBase = new ComponentBase();
 
         this.tableId = tableId;
+        this.tableHeadNames = tableHeadNames;
     }
 
     public generateTable() {
+
+        var tableHeadElements = [];
 
         // Generate the container element
         var tableContainer = this.componentBase.generateElement('div');
 
         // set table container id
         this.componentBase.setElementId(tableContainer, this.tableId);
+
+        for (var i = 0; i < this.tableHeadNames.length; i++) {
+            // var element = this.tableHeadNames[i];
+            
+            tableHeadElements.push(this.componentBase.generateElement('div'));
+        }
+
+        tableHeadElements.forEach(element => {
+            element.innerHTML = 'test'
+            this.componentBase.addChildElementToExistingElement(element, tableContainer);
+        });
+
+        this.componentBase.addElementToBody(tableContainer);
+
     }
 }

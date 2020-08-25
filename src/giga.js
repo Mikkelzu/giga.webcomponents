@@ -147,19 +147,38 @@ var Toast = /** @class */ (function () {
  */
 var Table = /** @class */ (function () {
     function Table() {
+        this.tableHelpers = new TableHelperMethods('id', ['head1', 'head2', 'head3']);
+        this.tableHelpers.generateTable();
     }
     return Table;
 }());
 var TableHelperMethods = /** @class */ (function () {
-    function TableHelperMethods(tableId) {
+    /**
+     *
+     * @param tableId
+     * @param tableHeadNames
+     */
+    function TableHelperMethods(tableId, tableHeadNames) {
         this.componentBase = new ComponentBase();
         this.tableId = tableId;
+        this.tableHeadNames = tableHeadNames;
     }
     TableHelperMethods.prototype.generateTable = function () {
+        var _this = this;
+        var tableHeadElements = [];
         // Generate the container element
         var tableContainer = this.componentBase.generateElement('div');
         // set table container id
         this.componentBase.setElementId(tableContainer, this.tableId);
+        for (var i = 0; i < this.tableHeadNames.length; i++) {
+            // var element = this.tableHeadNames[i];
+            tableHeadElements.push(this.componentBase.generateElement('div'));
+        }
+        tableHeadElements.forEach(function (element) {
+            element.innerHTML = 'test';
+            _this.componentBase.addChildElementToExistingElement(element, tableContainer);
+        });
+        this.componentBase.addElementToBody(tableContainer);
     };
     return TableHelperMethods;
 }());

@@ -6,3 +6,7 @@ function toast(input) {
 function modal() {
     giga.modal({title: 'Modal title', buttons: {cancel: 'Cancel', ok: 'Ok'}});
 }
+
+function table() {
+    Table();
+}
