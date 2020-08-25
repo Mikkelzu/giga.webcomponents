@@ -1,4 +1,11 @@
 var ToastOptions = /** @class */ (function () {
+    /**
+     * The options that a toast can have
+     * @param text Toast text
+     * @param icon Toast icon class name(s)
+     * @param position toast position
+     * @param timeOut toast timeout
+     */
     function ToastOptions(text, icon, position, timeOut) {
         this.text = text;
         this.icon = icon;
@@ -8,21 +15,48 @@ var ToastOptions = /** @class */ (function () {
     return ToastOptions;
 }());
 var ComponentBase = /** @class */ (function () {
+    /**
+     * Basic component base with generic functions for the dom elements
+     */
     function ComponentBase() {
     }
+    /**
+     * Generate a dom element
+     * @param elementType string of dom element
+     */
     ComponentBase.prototype.generateElement = function (elementType) {
         var element = document.createElement(elementType);
         return element;
     };
+    /**
+     * Set an id of a dom element
+     * @param element dom element
+     * @param idToSet id to give to element
+     */
     ComponentBase.prototype.setElementId = function (element, idToSet) {
         element.id = idToSet;
     };
+    /**
+     * Append an element to the document.body
+     * @param element dom element
+     */
     ComponentBase.prototype.addElementToBody = function (element) {
         document.body.append(element);
     };
+    /**
+     * Append the child element to a parent element
+     * @param child child element to append to parent
+     * @param parent parent element
+     */
     ComponentBase.prototype.addChildElementToExistingElement = function (child, parent) {
         parent.append(child);
     };
+    /**
+     *
+     * @param element dom element to destroy
+     * @param options toast options
+     * @param toasts toasts array
+     */
     ComponentBase.prototype.elementTimeOutAndDestroy = function (element, options, toasts) {
         setTimeout(function () {
             element.classList.remove('toast-visible');
@@ -36,10 +70,17 @@ var ComponentBase = /** @class */ (function () {
     return ComponentBase;
 }());
 var ToastHelperMethods = /** @class */ (function () {
+    /**
+     * Toast helper methods
+     */
     function ToastHelperMethods() {
         this.toasts = { all: [] };
         this.componentBase = new ComponentBase();
     }
+    /**
+     * Generate all relevant toast elements
+     * @param options options for the toast see @ToastOptions
+     */
     ToastHelperMethods.prototype.generateToastElements = function (options) {
         var el = this.componentBase.generateElement('div');
         var spanIcon = this.componentBase.generateElement('span');
@@ -65,6 +106,11 @@ var ToastHelperMethods = /** @class */ (function () {
     return ToastHelperMethods;
 }());
 var Toast = /** @class */ (function () {
+    /**
+     * Toast object to generate
+     * @param toastClass toast class name
+     * @param options toast options see @ToastOptions
+     */
     function Toast(toastClass, options) {
         this.toasts = { all: [] };
         this.componentBase = new ComponentBase();
