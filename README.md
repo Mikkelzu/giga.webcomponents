@@ -10,51 +10,65 @@ We do plan on also implementing other libraries to support them, but at the mome
 
 ## Methods
 
-To implement the basic toast, after importing both CSS and JS files, you can then call the public toast method with `giga.toast();`.
+To implement the basic toast, after importing both CSS and JS files, you can then call the public toast method with `Toast();`. The exposed Toast() method requires 2 params:
+
+```typescript
+toastClass: string
+options: object
+```
+
+`toastClass` is the styling (see below for the 4 out-of-the-box toast classes).
+
+`options` is an object containing properties like, `{text, icon, position, timeOut}`.
+
+The `text` property contains the text the toast should display.
+
+The `icon` property contains an icon class (see above for FA5 for pre-baked icons).
+
+The `position` property is optional, this will default to `'top-right'` if this isn't filled in, can also be set to `'top-left'`;
+
+The `timeOut` property siginifies in milliseconds (noted as ms) after how long the toast should disappear.
 
 Basic toast:
 
 ``` js
-giga.toast(constants.TOAST.SUCCESS, {text: 'Toast text'});
+Toast('success', {text: 'Toast text'});
 ```
 
 Toast with custom icon:
 
 ``` js
-giga.toast(constants.TOAST.SUCCESS, {text: 'Toast text', icon: 'icon-class'});
+Toast('success', {text: 'Toast text', icon: 'icon-class'});
 ```
 
 Toast with longer timeout:
 
 ``` js
-giga.toast(constants.TOAST.SUCCESS, {text: 'Toast text', icon: 'icon-class', timeOut: 2500});
+Toast('success, {text: 'Toast text', icon: 'icon-class', timeOut: 2500});
 ```
 
 Toast positioned top left:
 
 ``` js
-giga.toast(constants.TOAST.SUCCESS, {text: 'Toast text', icon: 'icon-class', position: 'top-left'});
+Toast('success', {text: 'Toast text', icon: 'icon-class', position: 'top-left'});
 ```
 
 Custom toast style class (given this class exists in your stylesheet):
 ``` js
-giga.toast('my-custom-style', {text: 'Custom toast style!'});
+Toast('my-custom-style', {text: 'Custom toast style!'});
 ```
 
 ## Constants
 
-As you may have noticed, in the example implementations above you see an object `constants` with the property `TOAST`. This is to signify what kind of toast we are looking for. We have exposed 4 different toast types, the standards that are being used:
+The 4 different out of the box toasts:
 
 ```js
-constants.TOAST.SUCCESS
-constants.TOAST.INFO
-constants.TOAST.FAILURE
-constants.TOAST.WARNING
+'success'
+'failure'
+'info'
+'warning'
 ```
-
-In the future, we will be adding more properties to the `constants` object. When this happens, we will update the docs accordingly.
-
-The reason we chose to use this method of setting things, is mostly so we keep a consistent implementation of our standards. However, we always will allow for customization. (See the toasts methods above for the custom class)
+However, we always will allow for customization. (See the toasts methods above for the custom class)
 
 ## Some developers notes
 
@@ -62,4 +76,4 @@ During development, some of the objects, method and other things will either be 
 Currently the library is called "Giga" but this is subject to change as we speed along development and prepare for a full release to the public.
 
 ## Docs version
-0.5.0
+0.5.1
