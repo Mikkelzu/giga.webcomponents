@@ -1,32 +1,9 @@
-var Constants = /** @class */ (function () {
-    function Constants() {
-        this.SUCCESS = 'success';
-        this.FAILURE = 'failure';
-        this.INFO = 'info';
-        this.WARNING = 'warning';
-    }
-    return Constants;
-}());
-var ElementType = /** @class */ (function () {
-    function ElementType() {
-        this.DIV = 'div';
-        this.SPAN = 'span';
-        this.BUTTON = 'button';
-    }
-    return ElementType;
-}());
 var ToastOptions = /** @class */ (function () {
     function ToastOptions(text, icon, position, timeOut) {
         this.text = text;
         this.icon = icon;
-        if (position == undefined)
-            this.position = 'top-right';
-        else
-            this.position = position;
-        if (timeOut == undefined)
-            this.timeOut = 2000;
-        else
-            this.timeOut = timeOut;
+        this.position = position;
+        this.timeOut = timeOut;
     }
     return ToastOptions;
 }());
@@ -62,7 +39,6 @@ var ToastHelperMethods = /** @class */ (function () {
     function ToastHelperMethods() {
         this.toasts = { all: [] };
         this.componentBase = new ComponentBase();
-        //this.options = options;
     }
     ToastHelperMethods.prototype.generateToastElements = function (options) {
         var el = this.componentBase.generateElement('div');
@@ -104,14 +80,19 @@ var Toast = /** @class */ (function () {
         //     this.config.position = 'top-right'
         //     this.config.timeOut = 2000
         // }
+        if (this.options.position == undefined) {
+            this.options.position = 'top-right';
+        }
+        if (this.options.timeOut == undefined) {
+            this.options.timeOut = 2000;
+        }
         var el = this.toastHelpers.generateToastElements(this.options);
         el.classList.add('toast', this.toastClass);
         el.classList.add('toast-position-' + this.options.position);
         el.style.display = 'block';
         el.classList.add('toast-visible');
         this.componentBase.addElementToBody(el);
-        console.log("created toast");
-        //this.componentBase.elementTimeOutAndDestroy(el, this.options, this.toasts);
+        this.componentBase.elementTimeOutAndDestroy(el, this.options, this.toasts);
     }
     return Toast;
 }());

@@ -1,18 +1,3 @@
-class Constants {
-
-    public SUCCESS = 'success';
-    public FAILURE = 'failure';
-    public INFO  = 'info';
-    public WARNING = 'warning';
-
-}
-
-class ElementType {
-
-    public DIV: string = 'div';
-    public SPAN: string = 'span'
-    public BUTTON: string = 'button'
-}
 class ToastOptions {
 
     public text: string;
@@ -26,18 +11,9 @@ class ToastOptions {
         this.text = text;
         this.icon = icon;
 
-        if (position == undefined)
-            this.position = 'top-right';
-        else
-            this.position = position;
-
-        if (timeOut == undefined)
-            this.timeOut = 2000;
-        else
-            this.timeOut = timeOut;
-        
+        this.position = position;
+        this.timeOut = timeOut
     }
-
 }
 
 class ComponentBase {
@@ -82,14 +58,11 @@ class ToastHelperMethods {
 
     constructor() {
         this.componentBase = new ComponentBase();
-        
-        //this.options = options;
     }
 
     private toasts: any = { all: [] };
 
     public generateToastElements(options: any) {
-        
 
         var el = this.componentBase.generateElement('div');
 
@@ -107,7 +80,6 @@ class ToastHelperMethods {
             } else {
                 spanIcon.classList.add(options.icon);
             }
-
         }
 
         spanText.classList.add('toast-text');
@@ -145,6 +117,13 @@ class Toast {
         //     this.config.timeOut = 2000
         // }
 
+        if (this.options.position == undefined) {
+            this.options.position = 'top-right'
+        }
+        if (this.options.timeOut == undefined) {
+            this.options.timeOut = 2000;
+        }
+
         var el = this.toastHelpers.generateToastElements(this.options);
         el.classList.add('toast', this.toastClass);
         el.classList.add('toast-position-' + this.options.position)
@@ -153,9 +132,8 @@ class Toast {
         el.classList.add('toast-visible');
 
         this.componentBase.addElementToBody(el);
-        console.log("created toast");
 
-        //this.componentBase.elementTimeOutAndDestroy(el, this.options, this.toasts);
+        this.componentBase.elementTimeOutAndDestroy(el, this.options, this.toasts);
     }
 
     
