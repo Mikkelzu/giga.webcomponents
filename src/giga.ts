@@ -1,12 +1,16 @@
 class ToastOptions {
-
     public text: string;
-
     public icon: string;
-
     public position: string;
     public timeOut: number;
 
+    /**
+     * The options that a toast can have
+     * @param text Toast text
+     * @param icon Toast icon class name(s)
+     * @param position toast position
+     * @param timeOut toast timeout
+     */
     constructor(text: string, icon: string, position: string, timeOut: number) {
         this.text = text;
         this.icon = icon;
@@ -18,8 +22,15 @@ class ToastOptions {
 
 class ComponentBase {
 
+    /**
+     * Basic component base with generic functions for the dom elements
+     */
     constructor() { }
 
+    /**
+     * Generate a dom element
+     * @param elementType string of dom element
+     */
     public generateElement(elementType: any): any {
         let element = document.createElement(elementType);
 
@@ -27,18 +38,38 @@ class ComponentBase {
     }
 
 
+    /**
+     * Set an id of a dom element
+     * @param element dom element
+     * @param idToSet id to give to element
+     */
     public setElementId(element: any, idToSet: string): void {
         element.id = idToSet;
     }
 
+    /**
+     * Append an element to the document.body
+     * @param element dom element
+     */
     public addElementToBody(element: any) {
         document.body.append(element);
     }
 
+    /**
+     * Append the child element to a parent element
+     * @param child child element to append to parent
+     * @param parent parent element
+     */
     public addChildElementToExistingElement(child: any, parent: any): void {
         parent.append(child);
     }
 
+    /**
+     * 
+     * @param element dom element to destroy
+     * @param options toast options
+     * @param toasts toasts array
+     */
     public elementTimeOutAndDestroy(element: any, options: any, toasts: any) {
         setTimeout(function () {
             element.classList.remove('toast-visible')
@@ -56,12 +87,19 @@ class ToastHelperMethods {
 
     private componentBase: ComponentBase
 
+    /**
+     * Toast helper methods
+     */
     constructor() {
         this.componentBase = new ComponentBase();
     }
 
     private toasts: any = { all: [] };
 
+    /**
+     * Generate all relevant toast elements
+     * @param options options for the toast see @ToastOptions
+     */
     public generateToastElements(options: any) {
 
         var el = this.componentBase.generateElement('div');
@@ -100,6 +138,11 @@ class Toast {
 
     private toasts: any = { all: [] };
 
+    /**
+     * Toast object to generate
+     * @param toastClass toast class name
+     * @param options toast options see @ToastOptions
+     */
     constructor(toastClass: string, options: ToastOptions) {
 
         this.componentBase = new ComponentBase();
