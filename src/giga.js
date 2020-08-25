@@ -142,3 +142,24 @@ var Toast = /** @class */ (function () {
     }
     return Toast;
 }());
+/**
+ * TABLE Classes
+ */
+var Table = /** @class */ (function () {
+    function Table() {
+    }
+    return Table;
+}());
+var TableHelperMethods = /** @class */ (function () {
+    function TableHelperMethods(tableId) {
+        this.componentBase = new ComponentBase();
+        this.tableId = tableId;
+    }
+    TableHelperMethods.prototype.generateTable = function () {
+        // Generate the container element
+        var tableContainer = this.componentBase.generateElement('div');
+        // set table container id
+        this.componentBase.setElementId(tableContainer, this.tableId);
+    };
+    return TableHelperMethods;
+}());

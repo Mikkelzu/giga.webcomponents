@@ -143,7 +143,8 @@ class Toast {
      * @param toastClass toast class name
      * @param options toast options see @ToastOptions
      */
-    constructor(toastClass: string, options: ToastOptions) {
+
+     constructor(toastClass: string, options: ToastOptions) {
 
         this.componentBase = new ComponentBase();
         this.toastHelpers = new ToastHelperMethods();
@@ -178,8 +179,33 @@ class Toast {
 
         this.componentBase.elementTimeOutAndDestroy(el, this.options, this.toasts);
     }
+}
 
-    
 
+/**
+ * TABLE Classes
+ */
+class Table {
+    constructor() {}
+}
 
+class TableHelperMethods {
+
+    private componentBase: ComponentBase;
+    private tableId: string;
+
+    constructor(tableId: string) {
+        this.componentBase = new ComponentBase();
+
+        this.tableId = tableId;
+    }
+
+    public generateTable() {
+
+        // Generate the container element
+        var tableContainer = this.componentBase.generateElement('div');
+
+        // set table container id
+        this.componentBase.setElementId(tableContainer, this.tableId);
+    }
 }
