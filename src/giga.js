@@ -157,6 +157,7 @@ var TableHelperMethods = /** @class */ (function () {
      *
      * @param tableId
      * @param tableHeadNames
+     * @param data
      */
     function TableHelperMethods(tableId, tableHeadNames, data) {
         this.componentBase = new ComponentBase();
@@ -166,7 +167,6 @@ var TableHelperMethods = /** @class */ (function () {
     }
     TableHelperMethods.prototype.generateTable = function () {
         var _this = this;
-        var tableHeadElements = [];
         // Generate the container element
         var tableContainer = this.componentBase.generateElement('div');
         tableContainer.classList.add('table-g');
@@ -175,13 +175,22 @@ var TableHelperMethods = /** @class */ (function () {
         var tableBody = this.componentBase.generateElement('div');
         tableBody.classList.add('table-g-body');
         this.componentBase.addChildElementToExistingElement(tableBody, tableContainer);
+        var tableHeadRow = this.componentBase.generateElement('div');
+        tableHeadRow.classList.add('table-g-heading');
         // TODO: Add table headers once I figured it out
+        this.tableHeadNames.forEach(function (tableHeader, index) {
+            console.log(tableHeader);
+            var tableheader = _this.componentBase.generateElement('div');
+            _this.componentBase.setElementId(tableheader, tableHeader + '-id');
+            tableheader.classList.add('table-g-head');
+            tableheader.innerHTML = tableHeader;
+            _this.componentBase.addChildElementToExistingElement(tableheader, tableBody);
+        });
         this.data.forEach(function (item, index) {
             var tableRowForCells = _this.componentBase.generateElement('div');
             tableRowForCells.classList.add('table-g-row');
             _this.componentBase.addChildElementToExistingElement(tableRowForCells, tableBody);
-            Object.keys(item).forEach(function (key) {
-                console.log(item[key]);
+            Object.keys(item).forEach(function (key, index) {
                 var tempElement = _this.componentBase.generateElement('div');
                 tempElement.classList.add('table-g-cell');
                 tempElement.innerHTML = item[key];

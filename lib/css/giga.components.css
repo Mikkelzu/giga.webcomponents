@@ -134,6 +134,10 @@ Modal
     display: table-cell;
     padding: 3px 10px;
 }
+.table-g-head {
+    font-size: 24px;
+    font-weight: bold;
+}
 
 .table-g-body {
     display: table-row-group;
