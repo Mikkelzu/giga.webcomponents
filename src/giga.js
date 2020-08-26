@@ -177,9 +177,7 @@ var TableHelperMethods = /** @class */ (function () {
         this.componentBase.addChildElementToExistingElement(tableBody, tableContainer);
         var tableHeadRow = this.componentBase.generateElement('div');
         tableHeadRow.classList.add('table-g-heading');
-        // TODO: Add table headers once I figured it out
         this.tableHeadNames.forEach(function (tableHeader, index) {
-            console.log(tableHeader);
             var tableheader = _this.componentBase.generateElement('div');
             _this.componentBase.setElementId(tableheader, tableHeader + '-id');
             tableheader.classList.add('table-g-head');

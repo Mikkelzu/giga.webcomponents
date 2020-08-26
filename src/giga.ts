@@ -235,9 +235,7 @@ class TableHelperMethods {
         var tableHeadRow = this.componentBase.generateElement('div');
         tableHeadRow.classList.add('table-g-heading')
 
-        // TODO: Add table headers once I figured it out
         this.tableHeadNames.forEach((tableHeader: string, index: number) => {
-            console.log(tableHeader)
             var tableheader = this.componentBase.generateElement('div');
             this.componentBase.setElementId(tableheader, tableHeader + '-id')
             tableheader.classList.add('table-g-head');
