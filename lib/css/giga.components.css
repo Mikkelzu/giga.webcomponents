@@ -118,25 +118,25 @@ Modal
 */
 .table-g {
     display: table;
-    width: auto;
-    border: solid 1px black;
-    border-spacing: 5px;
-}
-
-.table-g-header {
-    display: table-cell;
-    width: auto;
-    border: solid 1px black;
-    border-spacing: 5px;
+    width: 100%;
 }
 
 .table-g-row {
     display: table-row;
-    width: inherit;
 }
 
-.table-g-data-container {
-    display: table-row;
+.table-g-heading {
+    display: table-header-group;
+}
+
+.table-g-cell, .table-g-head {
+    border: 1px solid #999999;
+    display: table-cell;
+    padding: 3px 10px;
+}
+
+.table-g-body {
+    display: table-row-group;
 }
 
 /*

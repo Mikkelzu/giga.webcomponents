@@ -146,8 +146,8 @@ var Toast = /** @class */ (function () {
  * TABLE Classes
  */
 var Table = /** @class */ (function () {
-    function Table() {
-        this.tableHelpers = new TableHelperMethods('table-Id', ['head1', 'head2', 'head3'], [{ name: 'mike', lastname: 'lindemans', height: '183' }, { name: 'liz', lastname: 'stammitti', height: '152' }]);
+    function Table(tableId, tableHeadNames, data) {
+        this.tableHelpers = new TableHelperMethods(tableId, tableHeadNames, data);
         this.tableHelpers.generateTable();
     }
     return Table;
@@ -172,31 +172,21 @@ var TableHelperMethods = /** @class */ (function () {
         tableContainer.classList.add('table-g');
         // set table container id
         this.componentBase.setElementId(tableContainer, this.tableId);
-        var tableHeaderRow = this.componentBase.generateElement('div');
-        tableHeaderRow.classList.add('table-g-row');
-        this.componentBase.addChildElementToExistingElement(tableHeaderRow, tableContainer);
-        var tableDataContainer = this.componentBase.generateElement('div');
-        tableDataContainer.classList.add('table-g-data-container');
-        this.componentBase.addChildElementToExistingElement(tableDataContainer, tableContainer);
-        for (var i = 0; i < this.tableHeadNames.length; i++) {
-            // var element = this.tableHeadNames[i];
-            tableHeadElements.push(this.componentBase.generateElement('div'));
-        }
-        tableHeadElements.forEach(function (element, index) {
-            element.classList.add('table-g-header');
-            element.innerHTML = _this.tableHeadNames[index];
-            _this.componentBase.addChildElementToExistingElement(element, tableHeaderRow);
-        });
-        this.data.forEach(function (dataItem, index) {
-            var span = _this.componentBase.generateElement('span');
-            var temp = _this.componentBase.generateElement('div');
-            for (var i = 0; i < _this.data.length; i++) {
-                _this.componentBase.setElementId(span, i.toString());
-                span.innerHTML = _this.data[i];
-                _this.componentBase.addChildElementToExistingElement(span, temp);
-            }
-            _this.componentBase.addChildElementToExistingElement(temp, tableDataContainer);
-            console.log(dataItem);
+        var tableBody = this.componentBase.generateElement('div');
+        tableBody.classList.add('table-g-body');
+        this.componentBase.addChildElementToExistingElement(tableBody, tableContainer);
+        // TODO: Add table headers once I figured it out
+        this.data.forEach(function (item, index) {
+            var tableRowForCells = _this.componentBase.generateElement('div');
+            tableRowForCells.classList.add('table-g-row');
+            _this.componentBase.addChildElementToExistingElement(tableRowForCells, tableBody);
+            Object.keys(item).forEach(function (key) {
+                console.log(item[key]);
+                var tempElement = _this.componentBase.generateElement('div');
+                tempElement.classList.add('table-g-cell');
+                tempElement.innerHTML = item[key];
+                _this.componentBase.addChildElementToExistingElement(tempElement, tableRowForCells);
+            });
         });
         this.componentBase.addElementToBody(tableContainer);
     };
