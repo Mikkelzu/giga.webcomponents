@@ -111,6 +111,38 @@ Modal
 .footer-button-wrapper {
     float:right;
 }
+
+
+/*
+    Table stylings
+*/
+.table-g {
+    display: table;
+    width: 100%;
+}
+
+.table-g-row {
+    display: table-row;
+}
+
+.table-g-heading {
+    display: table-header-group;
+}
+
+.table-g-cell, .table-g-head {
+    border: 1px solid #999999;
+    display: table-cell;
+    padding: 3px 10px;
+}
+.table-g-head {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.table-g-body {
+    display: table-row-group;
+}
+
 /*
 standard styling bts etc
 */

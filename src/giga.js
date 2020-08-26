@@ -142,3 +142,60 @@ var Toast = /** @class */ (function () {
     }
     return Toast;
 }());
+/**
+ * TABLE Classes
+ */
+var Table = /** @class */ (function () {
+    function Table(tableId, tableHeadNames, data) {
+        this.tableHelpers = new TableHelperMethods(tableId, tableHeadNames, data);
+        this.tableHelpers.generateTable();
+    }
+    return Table;
+}());
+var TableHelperMethods = /** @class */ (function () {
+    /**
+     *
+     * @param tableId
+     * @param tableHeadNames
+     * @param data
+     */
+    function TableHelperMethods(tableId, tableHeadNames, data) {
+        this.componentBase = new ComponentBase();
+        this.tableId = tableId;
+        this.tableHeadNames = tableHeadNames;
+        this.data = data;
+    }
+    TableHelperMethods.prototype.generateTable = function () {
+        var _this = this;
+        // Generate the container element
+        var tableContainer = this.componentBase.generateElement('div');
+        tableContainer.classList.add('table-g');
+        // set table container id
+        this.componentBase.setElementId(tableContainer, this.tableId);
+        var tableBody = this.componentBase.generateElement('div');
+        tableBody.classList.add('table-g-body');
+        this.componentBase.addChildElementToExistingElement(tableBody, tableContainer);
+        var tableHeadRow = this.componentBase.generateElement('div');
+        tableHeadRow.classList.add('table-g-heading');
+        this.tableHeadNames.forEach(function (tableHeader, index) {
+            var tableheader = _this.componentBase.generateElement('div');
+            _this.componentBase.setElementId(tableheader, tableHeader + '-id');
+            tableheader.classList.add('table-g-head');
+            tableheader.innerHTML = tableHeader;
+            _this.componentBase.addChildElementToExistingElement(tableheader, tableBody);
+        });
+        this.data.forEach(function (item, index) {
+            var tableRowForCells = _this.componentBase.generateElement('div');
+            tableRowForCells.classList.add('table-g-row');
+            _this.componentBase.addChildElementToExistingElement(tableRowForCells, tableBody);
+            Object.keys(item).forEach(function (key, index) {
+                var tempElement = _this.componentBase.generateElement('div');
+                tempElement.classList.add('table-g-cell');
+                tempElement.innerHTML = item[key];
+                _this.componentBase.addChildElementToExistingElement(tempElement, tableRowForCells);
+            });
+        });
+        this.componentBase.addElementToBody(tableContainer);
+    };
+    return TableHelperMethods;
+}());

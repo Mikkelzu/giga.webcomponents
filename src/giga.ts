@@ -143,7 +143,8 @@ class Toast {
      * @param toastClass toast class name
      * @param options toast options see @ToastOptions
      */
-    constructor(toastClass: string, options: ToastOptions) {
+
+     constructor(toastClass: string, options: ToastOptions) {
 
         this.componentBase = new ComponentBase();
         this.toastHelpers = new ToastHelperMethods();
@@ -178,8 +179,86 @@ class Toast {
 
         this.componentBase.elementTimeOutAndDestroy(el, this.options, this.toasts);
     }
+}
 
-    
+
+/**
+ * TABLE Classes
+ */
+class Table {
+
+    private tableHelpers: TableHelperMethods;
+
+    constructor(tableId: string, tableHeadNames: any, data: any) {
+
+        this.tableHelpers = new TableHelperMethods(tableId, tableHeadNames,data);
+
+        this.tableHelpers.generateTable();
+    }
+}
+
+class TableHelperMethods {
+
+    private componentBase: ComponentBase;
+    private tableId: string;
+    private tableHeadNames: any;
+
+    private data: any;
+
+    /**
+     * 
+     * @param tableId 
+     * @param tableHeadNames 
+     * @param data
+     */
+    constructor(tableId: string, tableHeadNames: any, data: any) {
+        this.componentBase = new ComponentBase();
+
+        this.tableId = tableId;
+        this.tableHeadNames = tableHeadNames;
+        this.data = data;
+    }
+
+    public generateTable() {
+
+        // Generate the container element
+        var tableContainer = this.componentBase.generateElement('div');
+        tableContainer.classList.add('table-g');
+        // set table container id
+        this.componentBase.setElementId(tableContainer, this.tableId);
+
+        var tableBody = this.componentBase.generateElement('div');
+        tableBody.classList.add('table-g-body');
+
+        this.componentBase.addChildElementToExistingElement(tableBody, tableContainer);
+
+        var tableHeadRow = this.componentBase.generateElement('div');
+        tableHeadRow.classList.add('table-g-heading')
+
+        this.tableHeadNames.forEach((tableHeader: string, index: number) => {
+            var tableheader = this.componentBase.generateElement('div');
+            this.componentBase.setElementId(tableheader, tableHeader + '-id')
+            tableheader.classList.add('table-g-head');
+            tableheader.innerHTML = tableHeader;
+            this.componentBase.addChildElementToExistingElement(tableheader, tableBody)
+        });
 
 
+        this.data.forEach((item: any, index: number) => {
+
+            var tableRowForCells = this.componentBase.generateElement('div');
+            tableRowForCells.classList.add('table-g-row');
+            this.componentBase.addChildElementToExistingElement(tableRowForCells, tableBody);
+
+            Object.keys(item).forEach((key, index) => {
+                var tempElement = this.componentBase.generateElement('div');
+                tempElement.classList.add('table-g-cell');
+                tempElement.innerHTML = item[key];
+                this.componentBase.addChildElementToExistingElement(tempElement, tableRowForCells);
+            });
+        });
+        
+        this.componentBase.addElementToBody(tableContainer);
+
+    }
 }
