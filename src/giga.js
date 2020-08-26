@@ -147,7 +147,7 @@ var Toast = /** @class */ (function () {
  */
 var Table = /** @class */ (function () {
     function Table() {
-        this.tableHelpers = new TableHelperMethods('id', ['head1', 'head2', 'head3']);
+        this.tableHelpers = new TableHelperMethods('table-Id', ['head1', 'head2', 'head3'], [{ name: 'mike', lastname: 'lindemans', height: '183' }, { name: 'liz', lastname: 'stammitti', height: '152' }]);
         this.tableHelpers.generateTable();
     }
     return Table;
@@ -158,25 +158,45 @@ var TableHelperMethods = /** @class */ (function () {
      * @param tableId
      * @param tableHeadNames
      */
-    function TableHelperMethods(tableId, tableHeadNames) {
+    function TableHelperMethods(tableId, tableHeadNames, data) {
         this.componentBase = new ComponentBase();
         this.tableId = tableId;
         this.tableHeadNames = tableHeadNames;
+        this.data = data;
     }
     TableHelperMethods.prototype.generateTable = function () {
         var _this = this;
         var tableHeadElements = [];
         // Generate the container element
         var tableContainer = this.componentBase.generateElement('div');
+        tableContainer.classList.add('table-g');
         // set table container id
         this.componentBase.setElementId(tableContainer, this.tableId);
+        var tableHeaderRow = this.componentBase.generateElement('div');
+        tableHeaderRow.classList.add('table-g-row');
+        this.componentBase.addChildElementToExistingElement(tableHeaderRow, tableContainer);
+        var tableDataContainer = this.componentBase.generateElement('div');
+        tableDataContainer.classList.add('table-g-data-container');
+        this.componentBase.addChildElementToExistingElement(tableDataContainer, tableContainer);
         for (var i = 0; i < this.tableHeadNames.length; i++) {
             // var element = this.tableHeadNames[i];
             tableHeadElements.push(this.componentBase.generateElement('div'));
         }
-        tableHeadElements.forEach(function (element) {
-            element.innerHTML = 'test';
-            _this.componentBase.addChildElementToExistingElement(element, tableContainer);
+        tableHeadElements.forEach(function (element, index) {
+            element.classList.add('table-g-header');
+            element.innerHTML = _this.tableHeadNames[index];
+            _this.componentBase.addChildElementToExistingElement(element, tableHeaderRow);
+        });
+        this.data.forEach(function (dataItem, index) {
+            var span = _this.componentBase.generateElement('span');
+            var temp = _this.componentBase.generateElement('div');
+            for (var i = 0; i < _this.data.length; i++) {
+                _this.componentBase.setElementId(span, i.toString());
+                span.innerHTML = _this.data[i];
+                _this.componentBase.addChildElementToExistingElement(span, temp);
+            }
+            _this.componentBase.addChildElementToExistingElement(temp, tableDataContainer);
+            console.log(dataItem);
         });
         this.componentBase.addElementToBody(tableContainer);
     };
