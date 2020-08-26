@@ -8,7 +8,7 @@ Currently, we have built this library to use [Font Awesome 5](https://fontawesom
 
 We do plan on also implementing other libraries to support them, but at the moment we only support FA5 due to it being the most used icon library there is (currently).
 
-## Methods
+# Toast
 
 To implement the basic toast, after importing both CSS and JS files, you can then call the public toast method with `Toast();`. The exposed Toast() method requires 2 params:
 
@@ -58,7 +58,7 @@ Custom toast style class (given this class exists in your stylesheet):
 Toast('my-custom-style', {text: 'Custom toast style!'});
 ```
 
-## Constants
+## Toast styles
 
 The 4 different out of the box toasts:
 
@@ -70,10 +70,28 @@ The 4 different out of the box toasts:
 ```
 However, we always will allow for customization. (See the toasts methods above for the custom class)
 
+# Table
+
+To implement the basic table you will need to simply call the `Table()` method. This method has 3 params:
+
+``` typescript
+tableId: string
+tableHeaderNames: string[]
+data: [{}]
+```
+
+`tableId` is a string to give the table it's own identifier.
+
+`tableHeaderNames` is a string array to determine the headers on the table for each column.
+
+`data` is an array of object(s) to populate the table and generate the cells for the columns.
+
+
+
 ## Some developers notes
 
 During development, some of the objects, method and other things will either be deprecated or have their names changed to be more fitting.
 Currently the library is called "Giga" but this is subject to change as we speed along development and prepare for a full release to the public.
 
 ## Docs version
-0.5.1
+0.5.2
