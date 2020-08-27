@@ -32,25 +32,31 @@ The `timeOut` property siginifies in milliseconds (noted as ms) after how long t
 Basic toast:
 
 ``` js
-Toast('success', {text: 'Toast text'});
+Toast('success',
+  {text: 'Toast text'});
 ```
 
 Toast with custom icon:
 
 ``` js
-Toast('success', {text: 'Toast text', icon: 'icon-class'});
+Toast('success',
+  {text: 'Toast text', icon: 'icon-class'});
 ```
 
 Toast with longer timeout:
 
 ``` js
-Toast('success, {text: 'Toast text', icon: 'icon-class', timeOut: 2500});
+Toast('success,
+  {text: 'Toast text',
+    icon: 'icon-class', timeOut: 2500});
 ```
 
 Toast positioned top left:
 
 ``` js
-Toast('success', {text: 'Toast text', icon: 'icon-class', position: 'top-left'});
+Toast('success',
+  {text: 'Toast text',
+    icon: 'icon-class', position: 'top-left'});
 ```
 
 Custom toast style class (given this class exists in your stylesheet):
