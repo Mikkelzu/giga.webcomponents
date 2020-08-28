@@ -1,1 +1,201 @@
-var ToastOptions=function(t,e,n,s){this.text=t,this.icon=e,this.position=n,this.timeOut=s},ComponentBase=function(){function t(){}return t.prototype.generateElement=function(t){return document.createElement(t)},t.prototype.setElementId=function(t,e){t.id=e},t.prototype.addElementToBody=function(t){document.body.append(t)},t.prototype.addChildElementToExistingElement=function(t,e){e.append(t)},t.prototype.elementTimeOutAndDestroy=function(t,e,n){setTimeout(function(){t.classList.remove("toast-visible"),t.classList.add("toast-invisible")},e.timeOut),setTimeout(function(){t.remove(),n.all.pop(t)},e.timeOut+250)},t}(),ToastHelperMethods=function(){function t(){this.toasts={all:[]},this.componentBase=new ComponentBase}return t.prototype.generateToastElements=function(t){var e=this.componentBase.generateElement("div"),n=this.componentBase.generateElement("span"),s=this.componentBase.generateElement("span");(e.style.zIndex=9999,t.icon)&&(t.icon.includes("fab")||t.icon.includes("fas")||t.icon.includes("far")?t.icon.split(" ").forEach(function(t){n.classList.add(t)}):n.classList.add(t.icon));return s.classList.add("toast-text"),s.innerHTML=t.text,e.append(n,s),this.toasts.all.push(e),e},t}(),Toast=function(t,e){this.toasts={all:[]},this.componentBase=new ComponentBase,this.toastHelpers=new ToastHelperMethods,this.toastClass=t,this.options=e;for(var n=0;n<this.toasts.all.length;n++)this.toasts.all[n].style.top+=65;null==this.options.position&&(this.options.position="top-right"),null==this.options.timeOut&&(this.options.timeOut=2e3);var s=this.toastHelpers.generateToastElements(this.options);s.classList.add("toast",this.toastClass),s.classList.add("toast-position-"+this.options.position),s.style.display="block",s.classList.add("toast-visible"),this.componentBase.addElementToBody(s),this.componentBase.elementTimeOutAndDestroy(s,this.options,this.toasts)},Table=function(t,e,n){this.tableHelpers=new TableHelperMethods(t,e,n),this.tableHelpers.generateTable()},TableHelperMethods=function(){function t(t,e,n){this.componentBase=new ComponentBase,this.tableId=t,this.tableHeadNames=e,this.data=n}return t.prototype.generateTable=function(){var i=this,t=this.componentBase.generateElement("div");t.classList.add("table-g"),this.componentBase.setElementId(t,this.tableId);var a=this.componentBase.generateElement("div");a.classList.add("table-g-body"),this.componentBase.addChildElementToExistingElement(a,t),this.componentBase.generateElement("div").classList.add("table-g-heading"),this.tableHeadNames.forEach(function(t,e){var n=i.componentBase.generateElement("div");i.componentBase.setElementId(n,t+"-id"),n.classList.add("table-g-head"),n.innerHTML=t,i.componentBase.addChildElementToExistingElement(n,a)}),this.data.forEach(function(s,t){var o=i.componentBase.generateElement("div");o.classList.add("table-g-row"),i.componentBase.addChildElementToExistingElement(o,a),Object.keys(s).forEach(function(t,e){var n=i.componentBase.generateElement("div");n.classList.add("table-g-cell"),n.innerHTML=s[t],i.componentBase.addChildElementToExistingElement(n,o)})}),this.componentBase.addElementToBody(t)},t}();
+var ToastOptions = /** @class */ (function () {
+    /**
+     * The options that a toast can have
+     * @param text Toast text
+     * @param icon Toast icon class name(s)
+     * @param position toast position
+     * @param timeOut toast timeout
+     */
+    function ToastOptions(text, icon, position, timeOut) {
+        this.text = text;
+        this.icon = icon;
+        this.position = position;
+        this.timeOut = timeOut;
+    }
+    return ToastOptions;
+}());
+var ComponentBase = /** @class */ (function () {
+    /**
+     * Basic component base with generic functions for the dom elements
+     */
+    function ComponentBase() {
+    }
+    /**
+     * Generate a dom element
+     * @param elementType string of dom element
+     */
+    ComponentBase.prototype.generateElement = function (elementType) {
+        var element = document.createElement(elementType);
+        return element;
+    };
+    /**
+     * Set an id of a dom element
+     * @param element dom element
+     * @param idToSet id to give to element
+     */
+    ComponentBase.prototype.setElementId = function (element, idToSet) {
+        element.id = idToSet;
+    };
+    /**
+     * Append an element to the document.body
+     * @param element dom element
+     */
+    ComponentBase.prototype.addElementToBody = function (element) {
+        document.body.append(element);
+    };
+    /**
+     * Append the child element to a parent element
+     * @param child child element to append to parent
+     * @param parent parent element
+     */
+    ComponentBase.prototype.addChildElementToExistingElement = function (child, parent) {
+        parent.append(child);
+    };
+    /**
+     *
+     * @param element dom element to destroy
+     * @param options toast options
+     * @param toasts toasts array
+     */
+    ComponentBase.prototype.elementTimeOutAndDestroy = function (element, options, toasts) {
+        setTimeout(function () {
+            element.classList.remove('toast-visible');
+            element.classList.add('toast-invisible');
+        }, options.timeOut);
+        setTimeout(function () {
+            element.remove();
+            toasts.all.pop(element);
+        }, options.timeOut + 250);
+    };
+    return ComponentBase;
+}());
+var ToastHelperMethods = /** @class */ (function () {
+    /**
+     * Toast helper methods
+     */
+    function ToastHelperMethods() {
+        this.toasts = { all: [] };
+        this.componentBase = new ComponentBase();
+    }
+    /**
+     * Generate all relevant toast elements
+     * @param options options for the toast see @ToastOptions
+     */
+    ToastHelperMethods.prototype.generateToastElements = function (options) {
+        var el = this.componentBase.generateElement('div');
+        var spanIcon = this.componentBase.generateElement('span');
+        var spanText = this.componentBase.generateElement('span');
+        el.style.zIndex = 9999;
+        if (options.icon) {
+            if (options.icon.includes("fab") || options.icon.includes("fas") || options.icon.includes("far")) {
+                var fontAwesomeIcon = options.icon.split(" ");
+                fontAwesomeIcon.forEach(function (styleClass) {
+                    spanIcon.classList.add(styleClass);
+                });
+            }
+            else {
+                spanIcon.classList.add(options.icon);
+            }
+        }
+        spanText.classList.add('toast-text');
+        spanText.innerHTML = options.text;
+        el.append(spanIcon, spanText);
+        this.toasts.all.push(el);
+        return el;
+    };
+    return ToastHelperMethods;
+}());
+var Toast = /** @class */ (function () {
+    /**
+     * Toast object to generate
+     * @param toastClass toast class name
+     * @param options toast options see @ToastOptions
+     */
+    function Toast(toastClass, options) {
+        this.toasts = { all: [] };
+        this.componentBase = new ComponentBase();
+        this.toastHelpers = new ToastHelperMethods();
+        //Empty constructor
+        this.toastClass = toastClass;
+        this.options = options;
+        for (var i = 0; i < this.toasts.all.length; i++) {
+            this.toasts.all[i].style.top += 65;
+        }
+        //fallback if user has only entered text as options param
+        // if (!this.options.cfg.hasOwnProperty('position') || !this.options.cfg.hasOwnProperty('timeOut')) {
+        //     this.config.position = 'top-right'
+        //     this.config.timeOut = 2000
+        // }
+        if (this.options.position == undefined) {
+            this.options.position = 'top-right';
+        }
+        if (this.options.timeOut == undefined) {
+            this.options.timeOut = 2000;
+        }
+        var el = this.toastHelpers.generateToastElements(this.options);
+        el.classList.add('toast', this.toastClass);
+        el.classList.add('toast-position-' + this.options.position);
+        el.style.display = 'block';
+        el.classList.add('toast-visible');
+        this.componentBase.addElementToBody(el);
+        this.componentBase.elementTimeOutAndDestroy(el, this.options, this.toasts);
+    }
+    return Toast;
+}());
+/**
+ * TABLE Classes
+ */
+var Table = /** @class */ (function () {
+    function Table(tableId, tableHeadNames, data) {
+        this.tableHelpers = new TableHelperMethods(tableId, tableHeadNames, data);
+        this.tableHelpers.generateTable();
+    }
+    return Table;
+}());
+var TableHelperMethods = /** @class */ (function () {
+    /**
+     *
+     * @param tableId
+     * @param tableHeadNames
+     * @param data
+     */
+    function TableHelperMethods(tableId, tableHeadNames, data) {
+        this.componentBase = new ComponentBase();
+        this.tableId = tableId;
+        this.tableHeadNames = tableHeadNames;
+        this.data = data;
+    }
+    TableHelperMethods.prototype.generateTable = function () {
+        var _this = this;
+        // Generate the container element
+        var tableContainer = this.componentBase.generateElement('div');
+        tableContainer.classList.add('table-g');
+        // set table container id
+        this.componentBase.setElementId(tableContainer, this.tableId);
+        var tableBody = this.componentBase.generateElement('div');
+        tableBody.classList.add('table-g-body');
+        this.componentBase.addChildElementToExistingElement(tableBody, tableContainer);
+        var tableHeadRow = this.componentBase.generateElement('div');
+        tableHeadRow.classList.add('table-g-heading');
+        this.tableHeadNames.forEach(function (tableHeader, index) {
+            var tableheader = _this.componentBase.generateElement('div');
+            _this.componentBase.setElementId(tableheader, tableHeader + '-id');
+            tableheader.classList.add('table-g-head');
+            tableheader.innerHTML = tableHeader;
+            _this.componentBase.addChildElementToExistingElement(tableheader, tableBody);
+        });
+        this.data.forEach(function (item, index) {
+            var tableRowForCells = _this.componentBase.generateElement('div');
+            tableRowForCells.classList.add('table-g-row');
+            _this.componentBase.addChildElementToExistingElement(tableRowForCells, tableBody);
+            Object.keys(item).forEach(function (key, index) {
+                var tempElement = _this.componentBase.generateElement('div');
+                tempElement.classList.add('table-g-cell');
+                tempElement.innerHTML = item[key];
+                _this.componentBase.addChildElementToExistingElement(tempElement, tableRowForCells);
+            });
+        });
+        this.componentBase.addElementToBody(tableContainer);
+    };
+    return TableHelperMethods;
+}());

@@ -121,27 +121,42 @@ Modal
 /*
     Table stylings
 */
+table {
+    border: none;
+}
 .table-g {
     display: table;
     width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    background-color: transparent;
 }
 
 .table-g-row {
     display: table-row;
+    padding: .75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
 }
 
 .table-g-heading {
-    display: table-header-group;
+    color: #fff;
+    background-color: #212529;
+    border-color: #32383e;
 }
 
 .table-g-cell, .table-g-head {
-    border: 1px solid #999999;
     display: table-cell;
-    padding: 3px 10px;
+    padding: .75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
 }
 .table-g-head {
     font-size: 24px;
     font-weight: bold;
+    color: #fff;
+    background-color: #212529;
+    border-color: #32383e;
 }
 
 .table-g-body {

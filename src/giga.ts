@@ -190,8 +190,8 @@ class Table {
     private tableHelpers: TableHelperMethods;
 
     constructor(tableId: string, tableHeadNames: any, data: any) {
-
-        this.tableHelpers = new TableHelperMethods(tableId, tableHeadNames,data);
+        
+        this.tableHelpers = new TableHelperMethods(tableId, tableHeadNames, data);
 
         this.tableHelpers.generateTable();
     }
@@ -202,6 +202,7 @@ class TableHelperMethods {
     private componentBase: ComponentBase;
     private tableId: string;
     private tableHeadNames: any;
+    private idColumn: boolean;
 
     private data: any;
 
@@ -216,6 +217,7 @@ class TableHelperMethods {
 
         this.tableId = tableId;
         this.tableHeadNames = tableHeadNames;
+        
         this.data = data;
     }
 
